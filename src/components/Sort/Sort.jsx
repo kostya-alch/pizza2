@@ -4,7 +4,9 @@ import { useState } from "react"
 export const Sort = () => {
   const [isVisiblePopup, setIsVisiblePopup] = useState(false);
   const [sortSelected, setSortSelected] = useState(0)
+
   const sortsTypes = ['популярности', 'цене', 'алфавиту']
+
   const sortName = sortsTypes[sortSelected]
 
   const clickListItemHandler = (index) => {
