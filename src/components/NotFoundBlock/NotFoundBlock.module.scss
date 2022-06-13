@@ -1,3 +1,14 @@
 .root {
    text-align: center;
 }
+
+.back {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 10px;
+   font-size: 20px;
+   &:hover {
+      text-decoration: underline;
+   }
+}
