@@ -1,19 +1,17 @@
 import { useState } from "react"
 
 
-export const Sort = () => {
+export const Sort = ({ sortType, onChangeSort }) => {
   const [isVisiblePopup, setIsVisiblePopup] = useState(false);
-  const [sortSelected, setSortSelected] = useState(0)
 
   const sortsTypes = ['популярности', 'цене', 'алфавиту']
 
-  const sortName = sortsTypes[sortSelected]
+  const sortName = sortsTypes[sortType]
 
   const clickListItemHandler = (index) => {
-    setSortSelected(index)
+    onChangeSort(index)
     setIsVisiblePopup(false)
   }
-
   return (
     <div className="sort">
       <div className="sort__label">
@@ -37,7 +35,7 @@ export const Sort = () => {
           <ul>
             {
               sortsTypes.map((sort, index) =>
-                <li key={index} onClick={() => clickListItemHandler(index)} className={sortSelected === index ? 'active' : ''}>{sort}</li>
+                <li key={index} onClick={() => clickListItemHandler(index)} className={sortType === index ? 'active' : ''}>{sort}</li>
               )
             }
           </ul>
