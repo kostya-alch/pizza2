@@ -25,6 +25,7 @@ export const Home = () => {
         setPizzas(arr)
         setIsLoadingPizzas(false)
       })
+    window.scrollTo(0, 0);
     return response
   }
   return (

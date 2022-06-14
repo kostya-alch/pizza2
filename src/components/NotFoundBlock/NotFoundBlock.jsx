@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom'
 import styles from './NotFoundBlock.module.scss'
+
 export const NotFoundBlock = () => {
   return (
     <div>
