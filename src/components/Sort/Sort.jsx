@@ -4,9 +4,12 @@ export const Sort = ({ sortSelected, onChangeSort }) => {
   const [isVisiblePopup, setIsVisiblePopup] = useState(false);
 
   const sortsTypes = [
-    { name: 'популярности', sortProperty: 'rating' },
-    { name: 'цене', sortProperty: 'price' },
-    { name: 'названию', sortProperty: 'title' },
+    { name: 'популярности(DESС)', sortProperty: 'rating' },
+    { name: 'популярности(ASС)', sortProperty: '-rating' },
+    { name: 'цене(DESС)', sortProperty: 'price' },
+    { name: 'цене(ASС)', sortProperty: '-price' },
+    { name: 'названию(DESС)', sortProperty: 'title' },
+    { name: 'названию(ASС)', sortProperty: '-title' },
   ];
 
   const clickListItemHandler = (sortsTypes) => {

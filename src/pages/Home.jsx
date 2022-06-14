@@ -16,13 +16,16 @@ export const Home = () => {
 
   console.log(activeCategory, sortSelected);
 
+  const category = activeCategory > 0 ? `category=${activeCategory}` : ''
+  const order = sortSelected.sortProperty.includes('-') ? 'asc' : 'desc'
+  const sortBy = sortSelected.sortProperty.replace('-', '')
+
   useEffect(() => {
     const fetchPizzas = async () => {
       setIsLoadingPizzas(true);
       const response = await axios
         .get(
-          `https://62a63f4d430ba53411d2e408.mockapi.io/pizzas?${activeCategory > 0 ? `category=${activeCategory}` : ''
-          }&sortBy=${sortSelected.sortProperty}&order=asc`,
+          `https://62a63f4d430ba53411d2e408.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}`,
         )
         .then((res) => {
           return res.data;
