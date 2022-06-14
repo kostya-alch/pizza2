@@ -9,33 +9,39 @@ import { Sort } from "../components/Sort/Sort"
 export const Home = () => {
   const [pizzas, setPizzas] = useState([])
   const [isLoadingPizzas, setIsLoadingPizzas] = useState(false)
-  const [sortSelected, setSortSelected] = useState(0)
+  const [sortSelected, setSortSelected] = useState({ name: 'популярности', sortProperty: 'rating' })
   const [activeCategory, setActiveCategory] = useState(0)
 
   console.log(activeCategory, sortSelected);
 
-  useEffect(() => {
-    fetchPizzas(activeCategory)
-  }, [activeCategory])
 
-  const fetchPizzas = async (categoryItem) => {
-    setIsLoadingPizzas(true)
-    const response = await axios.get(`https://62a63f4d430ba53411d2e408.mockapi.io/pizzas?category=${categoryItem}`)
-      .then((res) => { return res.data; })
-      .then((arr) => {
-        setPizzas(arr)
-        setIsLoadingPizzas(false)
-      })
-    window.scrollTo(0, 0);
-    return response
-  }
+
+  useEffect(() => {
+    const fetchPizzas = async () => {
+      setIsLoadingPizzas(true)
+      const response = await axios.get(`https://62a63f4d430ba53411d2e408.mockapi.io/pizzas?${activeCategory > 0
+        ? `category=${activeCategory}`
+        : ''}&sortBy=${sortSelected.sortProperty}&order=asc`
+      )
+        .then((res) => { return res.data; })
+        .then((arr) => {
+          setPizzas(arr)
+          setIsLoadingPizzas(false)
+        })
+      window.scrollTo(0, 0);
+      return response
+    }
+    fetchPizzas()
+  }, [activeCategory, sortSelected.sortProperty])
+
+
 
   return (
     <>
       <div className="container">
         <div className="content__top">
           <Categories activeCategory={activeCategory} onClickCategory={setActiveCategory} />
-          <Sort sortType={sortSelected} onChangeSort={setSortSelected} />
+          <Sort sortSelected={sortSelected} onChangeSort={setSortSelected} />
         </div>
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
