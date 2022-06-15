@@ -5,7 +5,7 @@ import { PizzaBlock } from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/Skeleton/Skeleton';
 import { Sort } from '../components/Sort/Sort';
 
-export const Home = () => {
+export const Home = ({ searchValue }) => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoadingPizzas, setIsLoadingPizzas] = useState(false);
   const [sortSelected, setSortSelected] = useState({
@@ -40,6 +40,14 @@ export const Home = () => {
     fetchPizzas();
   }, [activeCategory, sortSelected]);
 
+  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+
+  const pizzaBlock = pizzas.filter(value => {
+    if (value.title.toLowerCase().includes(searchValue.toLowerCase())) {
+      return true
+    }
+    return false
+  }).map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)
   return (
     <>
       <div className="container">
@@ -50,8 +58,8 @@ export const Home = () => {
         <h2 className="content__title">Все пиццы</h2>
         <div className="content__items">
           {isLoadingPizzas
-            ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-            : pizzas.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)}
+            ? skeletons
+            : pizzaBlock}
         </div>
       </div>
     </>
