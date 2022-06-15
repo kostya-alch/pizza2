@@ -19,13 +19,14 @@ export const Home = ({ searchValue }) => {
   const category = activeCategory > 0 ? `category=${activeCategory}` : ''
   const order = sortSelected.sortProperty.includes('-') ? 'asc' : 'desc'
   const sortBy = sortSelected.sortProperty.replace('-', '')
+  const search = searchValue ? `&search=${searchValue}` : '';
 
   useEffect(() => {
     const fetchPizzas = async () => {
       setIsLoadingPizzas(true);
       const response = await axios
         .get(
-          `https://62a63f4d430ba53411d2e408.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}`,
+          `https://62a63f4d430ba53411d2e408.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}${search}`,
         )
         .then((res) => {
           return res.data;
@@ -38,16 +39,13 @@ export const Home = ({ searchValue }) => {
       return response;
     };
     fetchPizzas();
-  }, [activeCategory, sortSelected]);
+  }, [activeCategory, sortSelected, searchValue]);
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
 
-  const pizzaBlock = pizzas.filter(value => {
-    if (value.title.toLowerCase().includes(searchValue.toLowerCase())) {
-      return true
-    }
-    return false
-  }).map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)
+  const pizzaBlock = pizzas.map((pizza) => <PizzaBlock {...pizza} key={pizza.id} />)
+
+
   return (
     <>
       <div className="container">
