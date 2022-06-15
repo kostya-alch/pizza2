@@ -38,7 +38,7 @@ export const Home = () => {
       return response;
     };
     fetchPizzas();
-  }, [activeCategory, sortSelected.sortProperty]);
+  }, [activeCategory, sortSelected]);
 
   return (
     <>
