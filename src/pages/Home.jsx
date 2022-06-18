@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Categories } from '../components/Categories/Categories';
+import { Pagination } from '../components/Pagination/Pagination';
 import { PizzaBlock } from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/Skeleton/Skeleton';
 import { Sort } from '../components/Sort/Sort';
@@ -59,6 +60,7 @@ export const Home = ({ searchValue }) => {
             ? skeletons
             : pizzaBlock}
         </div>
+        <Pagination />
       </div>
     </>
   );
