@@ -14,6 +14,8 @@ export const Home = ({ searchValue }) => {
     sortProperty: 'rating',
   });
   const [activeCategory, setActiveCategory] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1)
+
 
   console.log(activeCategory, sortSelected);
 
@@ -27,7 +29,7 @@ export const Home = ({ searchValue }) => {
       setIsLoadingPizzas(true);
       const response = await axios
         .get(
-          `https://62a63f4d430ba53411d2e408.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}${search}`,
+          `https://62a63f4d430ba53411d2e408.mockapi.io/pizzas?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
         )
         .then((res) => {
           return res.data;
@@ -40,7 +42,7 @@ export const Home = ({ searchValue }) => {
       return response;
     };
     fetchPizzas();
-  }, [activeCategory, sortSelected, searchValue]);
+  }, [activeCategory, sortSelected, searchValue, currentPage]);
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
 
@@ -60,7 +62,7 @@ export const Home = ({ searchValue }) => {
             ? skeletons
             : pizzaBlock}
         </div>
-        <Pagination />
+        <Pagination onChangePage={(number) => setCurrentPage(number)} />
       </div>
     </>
   );
